@@ -6,7 +6,7 @@ Swipe and sync between two MapLibre maps. This plugin was originally developed f
 
 ### Examples
 
-#### Full Example without the need of a token
+#### Full Example with a CDN
 
 ```js
 <!DOCTYPE html>
@@ -18,10 +18,9 @@ Swipe and sync between two MapLibre maps. This plugin was originally developed f
       name="viewport"
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
-    <script src="../.env"></script>
-    <script src="https://unpkg.com/maplibre-gl@2.1.6/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@5.15.0/dist/maplibre-gl.js"></script>
     <link
-      href="https://unpkg.com/maplibre-gl@2.1.6/dist/maplibre-gl.css"
+      href="https://unpkg.com/maplibre-gl@5.15.0/dist/maplibre-gl.css"
       rel="stylesheet"
     />
     <style>
@@ -60,140 +59,54 @@ Swipe and sync between two MapLibre maps. This plugin was originally developed f
         width: 100%;
       }
     </style>
-    <script src="maplibre-gl-compare.js"></script>
-    <link rel="stylesheet" href="maplibre-gl-compare.css" type="text/css" />
+    <script src="https://unpkg.com/@maplibre/maplibre-gl-compare@0.5.0/dist/maplibre-gl-compare.umd.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-compare@0.5.0/dist/maplibre-gl-compare.css" type="text/css" />
     <div id="comparison-container">
       <div id="before" class="map"></div>
       <div id="after" class="map"></div>
     </div>
     <script>
-      var beforeMap = new maplibregl.Map({
+      const beforeMap = new maplibregl.Map({
         container: "before",
         style: "https://demotiles.maplibre.org/style.json",
         center: [7.221275, 50.326111],
         zoom: 5,
       });
 
-      var afterMap = new maplibregl.Map({
+      const afterMap = new maplibregl.Map({
         container: "after",
         style:
-          "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json",
+          "https://raw.githubusercontent.com/lukasmartinelli/naturalearthtiles/gh-pages/maps/natural_earth.vector.json",
         center: [7.221275, 50.326111],
         zoom: 5,
       });
 
       // A selector or reference to HTML element
-      var container = "#comparison-container";
+      const container = "#comparison-container";
 
-      var map = new maplibregl.Compare(beforeMap, afterMap, container, {
+      const map = new maplibregl.Compare(beforeMap, afterMap, container, {
         // Set this to enable comparing two maps by mouse movement:
-        // m ousemove: true
+        // mousemove: true
       });
     </script>
   </body>
 </html>
 ```
 
-#### Full Example with the need of a token
+### Example with a bundler
 
 ```js
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Swipe between maps</title>
-    <meta
-      name="viewport"
-      content="initial-scale=1,maximum-scale=1,user-scalable=no"
-    />
-    <script src="../.env"></script>
-    <script src="https://unpkg.com/maplibre-gl@2.1.6/dist/maplibre-gl.js"></script>
-    <link
-      href="https://unpkg.com/maplibre-gl@2.1.6/dist/maplibre-gl.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
+import * as maplibre from "maplibre-gl";
+import { Compare } from "@maplibre/maplibre-gl-compare";
 
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
-    </style>
-  </head>
-
-  <body>
-    <style>
-      body {
-        overflow: hidden;
-      }
-
-      body * {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      .map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
-    </style>
-    <script src="maplibre-gl-compare.js"></script>
-    <link rel="stylesheet" href="maplibre-gl-compare.css" type="text/css" />
-    <div id="comparison-container">
-      <div id="before" class="map"></div>
-      <div id="after" class="map"></div>
-    </div>
-    <script>
-      var beforeMap = new maplibregl.Map({
-        container: "before",
-        style:
-          "https://api.maptiler.com/maps/hybrid/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL",
-        center: [7.221275, 50.326111],
-        zoom: 15,
-      });
-
-      var afterMap = new maplibregl.Map({
-        container: "after",
-        style:
-          "https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL",
-        center: [7.221275, 50.326111],
-        zoom: 15,
-      });
-
-      // A selector or reference to HTML element
-      var container = "#comparison-container";
-
-      var map = new maplibregl.Compare(beforeMap, afterMap, container, {
-        // Set this to enable comparing two maps by mouse movement:
-        // m ousemove: true
-      });
-    </script>
-  </body>
-</html>
-```
-
-### Usage
-
-```js
-var beforeMap = new maplibregl.Map({
+const beforeMap = new maplibregl.Map({
 container: "before",
 style: "https://demotiles.maplibre.org/style.json",
 center: [7.221275, 50.326111],
 zoom: 5,
 });
 
-var afterMap = new maplibregl.Map({
+const afterMap = new maplibregl.Map({
 container: "after",
 style:
     "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json",
@@ -202,9 +115,9 @@ zoom: 5,
 });
 
 // A selector or reference to HTML element
-var container = '#comparison-container';
+const container = '#comparison-container';
 
-var map = new maplibregl.Compare(beforeMap, afterMap, container, {
+const map = new Compare(beforeMap, afterMap, container, {
   mousemove: true, // Optional. Set to true to enable swiping during cursor movement.
   orientation: 'vertical' // Optional. Sets the orientation of swiper to horizontal or vertical, defaults to vertical
 });
@@ -247,10 +160,10 @@ Add tags referencing `maplibre-gl-compare` after adding `maplibre-gl` to your we
 
 ```html
 <!-- MapLibre GL -->
-<link href="https://unpkg.com/maplibre-gl@2.1.6/dist/maplibre-gl.css" rel='stylesheet' />
+<link href="https://unpkg.com/maplibre-gl@5.15.0/dist/maplibre-gl.css" rel='stylesheet' />
 <link href="maplibre-gl-compare.css" rel='stylesheet' />
 
-<script src="https://unpkg.com/maplibre-gl@2.1.6/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/maplibre-gl@5.15.0/dist/maplibre-gl.js"></script>
 <script src="maplibre-gl-compare.js"></script>
 ```
 

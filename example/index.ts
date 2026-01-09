@@ -1,19 +1,19 @@
-"use strict";
-
-require("../");
+import * as maplibre from "maplibre-gl";
+import { Compare } from "../src/maplibre-gl-compare";
 
 // 'Before' style from https://github.com/lukasmartinelli/naturalearthtiles
-var before = new maplibregl.Map({
+var before = new maplibre.Map({
   container: "before",
-  style: "https://raw.githubusercontent.com/lukasmartinelli/naturalearthtiles/gh-pages/maps/natural_earth.vector.json",
-  zoom: 2
+  style:
+    "https://raw.githubusercontent.com/lukasmartinelli/naturalearthtiles/gh-pages/maps/natural_earth.vector.json",
+  zoom: 2,
 });
 
 // 'After' style from https://github.com/maplibre/demotiles
-var after = new maplibregl.Map({
+var after = new maplibre.Map({
   container: "after",
   style: "https://demotiles.maplibre.org/style.json",
-  zoom: 2
+  zoom: 2,
 });
 
 // Use either of these patterns to select a container for the compare widget
@@ -26,7 +26,7 @@ var options = {
   orientation: "horizontal",
 };
 
-window.compare = new maplibregl.Compare(
+const compare = new Compare(
   before,
   after,
   wrapperSelector
@@ -35,8 +35,8 @@ window.compare = new maplibregl.Compare(
 
 var closeButton = document.getElementById("close-button");
 
-closeButton.addEventListener("click", function (e) {
+closeButton?.addEventListener("click", function (e) {
   after.getContainer().style.display = "none";
-  window.compare.remove();
+  compare.remove();
   after.remove();
 });
