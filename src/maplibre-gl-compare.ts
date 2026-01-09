@@ -1,5 +1,5 @@
 import syncMove from "@mapbox/mapbox-gl-sync-move";
-import * as maplibre from "maplibre-gl";
+import maplibregl from "maplibre-gl";
 
 type CompareOptions = {
   orientation: "horizontal" | "vertical";
@@ -21,9 +21,9 @@ const defaultCompareOptions: CompareOptions = {
  * });
  * @see [Swipe between maps](https://maplibre.org/maplibre-gl-js-docs/plugins/)
  */
-class Compare extends maplibre.Evented {
-  private mapA: maplibre.Map;
-  private mapB: maplibre.Map;
+class Compare extends maplibregl.Evented {
+  private mapA: maplibregl.Map;
+  private mapB: maplibregl.Map;
   private horizontal: boolean;
   private swiper: HTMLDivElement;
   private controlContainer: HTMLDivElement;
@@ -42,8 +42,8 @@ class Compare extends maplibre.Evented {
    * @param {boolean} [options.mousemove=false] If `true` the compare slider will move with the cursor, otherwise the slider will need to be dragged to move.
    */
   constructor(
-    a: maplibre.Map,
-    b: maplibre.Map,
+    a: maplibregl.Map,
+    b: maplibregl.Map,
     container: string | Element,
     options: Partial<CompareOptions> = {}
   ) {
