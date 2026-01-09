@@ -11,10 +11,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "start": "cp style.css example/style.css && budo example/index.js --serve example/bundle.js --dir example --live",
-    "build:legacy": "cp style.css dist/maplibre-gl-compare.css && NODE_ENV=production && browserify index.js | uglifyjs -c -m > dist/maplibre-gl-compare.js",
     "build": "tsdown && cp src/style.css dist/maplibre-gl-compare.css",
-    "test": "npm run lint && browserify -t envify test/index.js | smokestack -b firefox | tap-status",
+    "test": "npm run build && npm run lint && playwright test",
     "lint": "eslint",
     "docs": "documentation build src/maplibre-gl-compare.ts --parse-extension=ts --format=md > API.md",
     "prepare": "npm run build"
@@ -34,14 +32,10 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@mapbox/mapbox-gl-sync-move": "^0.3.0",
-    "browserify": "^17.0.1",
+    "@playwright/test": "^1.57.0",
     "documentation": "^13.2.5",
-    "envify": "^4.1.0",
     "eslint": "^9.39.2",
     "maplibre-gl": "^2.1.6",
-    "smokestack": "^3.6.0",
-    "tap-status": "^1.0.1",
-    "tape": "^5.5.2",
     "tsdown": "^0.19.0-beta.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.52.0",
