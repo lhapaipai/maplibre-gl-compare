@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Migrate code base to TypeScript.
+
 ### Added
 
 - Forked from https://github.com/mapbox/mapbox-gl-compare
